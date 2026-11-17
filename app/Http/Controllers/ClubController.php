@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Flight;
-use App\Http\Requests\StoreFlightRequest;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClubController extends Controller
 {
@@ -26,40 +27,17 @@ class ClubController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFlightRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate(['name' => 'required|max:255']);
+
+        DB::table('Clubs')->insert([
+            'name'=> $request->name,
+            'created_at'=> now(),
+            // 'upload_at'=> now(),
+        ]);
+        return back()->with('success', 'Club berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Flight $flight)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Flight $flight)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateFlightRequest $request, Flight $flight)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Flight $flight)
-    {
-        //
-    }
+    
 }

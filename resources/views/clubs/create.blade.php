@@ -13,7 +13,7 @@
     <form action="{{ route('club.store') }}" method="POST">
     @csrf
         <label for="name">Nama club</label>
-        <input type="text" id="name" required>
+        <input type="text" id="name" name="name" value="{{ old('name') }}" required>
         <button type="submit">Simpan</button>
         
     </form>
